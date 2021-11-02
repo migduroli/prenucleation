@@ -1,6 +1,14 @@
-d <- 1.1244132
-kT <- 0.375
+#install.packages("ConfigParser")
+
+library(ConfigParser)
+
+config <- ConfigParser$new()
+config$read("config.ini")
+
+kT <- config$getfloat("kT", NA, "bulk")
+supsat <- config$getfloat("supsat", NA, "bulk")
 b_beta <- 1 / kT
-n_points <- 500
-r_min <- 1
-supsat <- 1.75
+
+d <-  config$getfloat("hard_sphere", NA, "thermo")
+n_points <- config$getfloat("points", NA, "path")
+r_min <- config$getfloat("r_min", NA, "path")
