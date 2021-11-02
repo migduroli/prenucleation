@@ -1,7 +1,7 @@
-source("params.R")
-source("thermo.R")
-source("bulk.R")
-source("graphs.R")
+source("utils/params.R")
+source("utils/thermo.R")
+source("utils/bulk.R")
+source("utils/graphs.R")
 
 m_bulk <- initialize()
 

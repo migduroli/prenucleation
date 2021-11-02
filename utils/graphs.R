@@ -1,5 +1,3 @@
-source("thermo.R")
-
 plot_radius <- function(bulk) {
   radii <- r_path(x = bulk$rho, rho_v = bulk$rho_vap, rho_l = bulk$rho_liq)
 

@@ -12,8 +12,8 @@ language for the different parties of the project.
 
 So far the project consists in:
 
-- [bulk](bulk.R): Module where the initialisation of the bulk phase is done
-- [thermo](thermo.R): Module with the main functions about the bulk and cluster thermodynamic properties
-- [params](params.R): Module where the configuration parameters (e.g. `kT` or `hard_sphere`) are set
+- [bulk](utils/bulk.R): Module where the initialisation of the bulk phase is done
+- [thermo](utils/thermo.R): Module with the main functions about the bulk and cluster thermodynamic properties
+- [params](utils/params.R): Module where the configuration parameters (e.g. `kT` or `hard_sphere`) are set
 - [main](main.R): This is the entry point to generate the figures required
 
