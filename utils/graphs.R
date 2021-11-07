@@ -1,3 +1,5 @@
+library(shape)
+
 plot_radius <- function(bulk) {
   radii <- r_path(x = bulk$rho, rho_v = bulk$rho_vap, rho_l = bulk$rho_liq)
 
@@ -114,6 +116,17 @@ plot_panel <- function(n, bulk_obj, omega_obj, lims_obj, is_first) {
       cex.lab=1.25
     )
     abline(h=0)
+    abline(h=0.5,col=3 ,lwd=2)
+
+    Arrows(
+      omega_obj$r_c * 1.075,
+      omega_obj$w_c,
+      omega_obj$r_c * 1.075,
+      omega_obj$w_c * 0.25,
+      arr.type = "curved",
+      col = "red",
+      lwd = 2
+    )
 
   } else {
     par(mfg = c(1, n))
