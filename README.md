@@ -15,5 +15,5 @@ So far the project consists in:
 - [bulk](utils/bulk.R): Module where the initialisation of the bulk phase is done
 - [thermo](utils/thermo.R): Module with the main functions about the bulk and cluster thermodynamic properties
 - [params](utils/params.R): Module where the configuration parameters (e.g. `kT` or `hard_sphere`) are set
-- [main](main.R): This is the entry point to generate the figures required
+- [main](single_supsat.R): This is the entry point to generate the figures required
 
