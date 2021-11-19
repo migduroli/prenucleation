@@ -4,8 +4,10 @@ setup_margins <- function(left = 4.5, right = 2.5, bottom = 6, top = 4) {
   par(mar=c(bottom, left, top, right)+.1)
 }
 
-plot_radius <- function(bulk) {
+plot_radius <- function(bulk, pdf = FALSE, file = "fig.pdf") {
   radii <- r_path(x = bulk$rho, rho_v = bulk$rho_vap, rho_l = bulk$rho_liq)
+
+  if (pdf) { pdf(file = file, width = 6, height = 6) }
 
   setup_margins()
   plot(bulk$rho, radii,
@@ -19,10 +21,14 @@ plot_radius <- function(bulk) {
   # abline(h=bulk$r_min, lty=2)
   abline(v=bulk$rho_liq, lty=2)
   abline(v=bulk$rho_vap, lty=2)
+
+  if (pdf) { dev.off() }
 }
 
-plot_omega <- function(bulk)
+plot_omega <- function(bulk, pdf = FALSE, file = "figure.pdf")
 {
+  if (pdf) { pdf(file = file, width = 6, height = 6) }
+
   Omega <- W(
     x = bulk$rho,
     rho_v = bulk$rho_vap,
@@ -48,9 +54,13 @@ plot_omega <- function(bulk)
   points(r_cc, o_cc, col="red", pch=16)
   abline(h = o_cc, lty = 2, col="grey")
   abline(h = 0, lty = 2)
+
+  if (pdf) { dev.off() }
 }
 
-plot_g <- function(bulk) {
+plot_g <- function(bulk, pdf = FALSE, file = "figure.pdf") {
+  if (pdf) { pdf(file = file, width = 6, height = 6) }
+
   g_m <- log(f_att( x = bulk$rho, rho_v = bulk$rho_vap, rho_l = bulk$rho_liq))
   plot(x = bulk$rho,
        y = g_m,
@@ -58,6 +68,8 @@ plot_g <- function(bulk) {
        ylim=c(0,10),
        type="o")
   abline(h=0, lty=2)
+
+  if (pdf) { dev.off() }
 }
 
 
@@ -244,7 +256,7 @@ compute_p_eq <- function(omega_obj, bulk) {
   return(p_obj)
 }
 
-plot_prob_panel <- function(is_first, p_eq_obj, limits) {
+plot_prob_panel <- function(is_first, p_eq_obj, limits, arrow=TRUE, critical=TRUE) {
 
   if (is_first) {
     limits <- list(
@@ -265,31 +277,33 @@ plot_prob_panel <- function(is_first, p_eq_obj, limits) {
     abline(h=0, lty=2)
     # abline(h=exp(-1), lwd=2, col=3)
 
-    Arrows(
-      p_eq_obj$r_c,
-      0,
-      p_eq_obj$r_c,
-      4,
-      arr.type = "curved",
-      col = "red",
-      lwd = 2
-    )
+    if (arrow) {
+      Arrows(x0 = p_eq_obj$r_c,
+             y0 = 0,
+             x1 = p_eq_obj$r_c,
+             y1 = 4,
+             arr.type = "curved",
+             col = "red",
+             lwd = 2)
+    }
 
   } else {
     lines(p_eq_obj$rho, p_eq_obj$prob, lty=2)
   }
 
-  points(
-    x=p_eq_obj$r_c,
-    y=p_eq_obj$p_c,
-    col=2,
-    pch=16
-  )
+  if (critical) {
+    points(
+      x=p_eq_obj$r_c,
+      y=p_eq_obj$p_c,
+      col=2,
+      pch=16
+    )
+  }
 
   return(limits)
 }
 
-plot_probability <- function(bulk, limits) {
+plot_probability <- function(bulk, limits, arrow = TRUE, critical = TRUE) {
   is_first <- is.list(limits) & length(limits) == 0
 
   if (is_first) { par(mfrow=c(1,1)) }
@@ -303,7 +317,9 @@ plot_probability <- function(bulk, limits) {
   limits <- plot_prob_panel(
     is_first = is_first,
     p_eq_obj = p_eq,
-    limits = limits
+    limits = limits,
+    arrow = arrow,
+    critical = critical
   )
 
   return(limits)

@@ -17,15 +17,18 @@ m_bulk <- initialize(beta = b_beta, supsat = b_supsat)
 # rho <- m_bulk$rho
 
 # The set of radii associated to the range of cluster densities under study
-plot_radius(m_bulk)
+plot_radius(m_bulk, pdf=TRUE, file= "figures/path.S1.75.pdf")
 
 # Plot omega:
-plot_omega(m_bulk)
+plot_omega(m_bulk, pdf=TRUE, file= "figures/omega.S1.75.pdf")
 
 # Plot of g:
 plot_g(m_bulk)
 
 
 # Plot omega vs omega_eff:
+
+pdf(file = "figures/potentials.S1.75.pdf", width = 6, height = 6)
 plot_potentials(m_bulk, limits = list())
+dev.off()
 
